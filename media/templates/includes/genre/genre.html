@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        <table class="table">
+            <h1>{{ genre.name }}</h1>
+            {% for x in genres %}
+                <tr>
+                    <td><a href="{% url 'view_genre' x.id %}">{{ x.name }}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

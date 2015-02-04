@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Media Hub</title>
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet.css' %}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-6">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="#">Media Server</a>
+            </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'movie' %}">Movies</a></li>
+                <li><a href="{% url 'series' %}">TV Shows</a></li>
+                <li><a href="{% url 'actor' %}">Actors</a></li>
+                <li><a href="{% url 'director' %}">Directors</a></li>
+                <li><a href="{% url 'writer' %}">Writers</a></li>
+                <li><a href="{% url 'genre' %}">Genres</a></li>
+                <li><a href="{% url 'add' %}"><b>Add New Content</b></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h2>Welcome to the media server</h2>
+    {% include include %}
+
+</body>
+</html>

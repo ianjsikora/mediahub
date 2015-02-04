@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    {# Top Section #}
+    {% for genre in genres %}
+        <h1 style="text-align:center">{{ genre.name }}</h1>
+    {% endfor %}
+    <table class="table">
+        <tr>
+            <td>Poster</td>
+            <td>Title</td>
+            <td>Year</td>
+            <td>Rating</td>
+            <td>Plot</td>
+        </tr>
+        {% for x in content %}
+        <tr>
+            <td><img src="{{ x.poster }}" alt="Poster" style="width:100px;height:156px"></td>
+            <td><a href="{% url 'view_movie' x.id %}">{{ x.title }}</a></td>
+            <td>{{ x.release_date }}</td>
+            <td>
+                <table>
+                    <tr>
+                        <td><img src="{% static 'img/IMDB.png' %}" style="width:37px;height:23px"></td>
+                        <td>{{ x.rating_imdb }}</td>
+                    </tr>
+                    <tr>
+                        <td style="alignment:center"><img src="{% static 'img/tomato_c.png' %}" style="width:19px;height:20px"></td>
+                        <td>{{ x.rating_tomato_c }}</td>
+                    </tr>
+                    <tr>
+                        <td><img src="{% static 'img/tomato_a.png' %}" style="width:25px;height:28px"></td>
+                        <td>{{ x.rating_tomato_a }}</td>
+                    </tr>
+                </table>
+            </td>
+            <td>{{ x.synopsis }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+.divbox {
+    border: solid 5px;
+}
+
+#personcard {
+    width: 150px !important;
+    height: 300px !important;
+    display: inline-block;
+    align-content: center;
+    border-color: white;
+}
+
+.personheadshot {
+    width: 100%;
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+        {% for x in directors %}
+            <div class="container col-lg-2 col-md-3 col-sm-3 col-xs-5" style="background-color: black">
+                <table id="personcard">
+                    <tr>
+                        <td><a href="{% url 'view_director' x.id %}"><img class="personheadshot" src="{{ x.headshot }}" alt="Headshot"></a></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><a href="{% url 'view_director' x.id %}">{{ x.name }}</a></td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+    </body>
+</html>
