@@ -23,7 +23,9 @@ def get_content(args):
         imdb = requests.get(imdb_url)
         tomato_target = imdb.json()['Title']
         tomato_url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + SECRET_KEY + tomato_target + "&page_limit=1"
+        print tomato_url
         tomato = requests.get(tomato_url)
+        print tomato.json()
 
         #Grab Movie Data
         title = imdb.json()['Title']
@@ -38,11 +40,15 @@ def get_content(args):
         runtime = int(runtime_list[0])
         rating = imdb.json()['Rated']
         synopsis = imdb.json()['Plot']
-        rating_tomato_c = tomato.json()['movies'][0]['ratings']['critics_score']
-        rating_tomato_a = tomato.json()['movies'][0]['ratings']['audience_score']
+        if tomato.json()['movies'][0]['ratings']['critics_score']:
+            rating_tomato_c = tomato.json()['movies'][0]['ratings']['critics_score']
+        if tomato.json()['movies'][0]['ratings']['audience_score']:
+            rating_tomato_a = tomato.json()['movies'][0]['ratings']['audience_score']
         rating_imdb = float(imdb.json()['imdbRating'])
-        poster = tomato.json()['movies'][0]['posters']['original'].replace('_tmb', '_lgr')
-        tomato_id = tomato.json()['movies'][0]['id']
+        if tomato.json()['movies'][0]['posters']['original']:
+            poster = tomato.json()['movies'][0]['posters']['original'].replace('_tmb', '_lgr')
+        if tomato.json()['movies'][0]['id']:
+            tomato_id = tomato.json()['movies'][0]['id']
         IMDb_id = imdb.json()['imdbID']
         IMDB_url = 'http://www.imdb.com/title/' + imdb_target
 
