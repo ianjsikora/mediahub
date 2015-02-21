@@ -30,12 +30,7 @@ def page_scrape(args):
                     # print page_soup.find('span',itemprop="ratingValue").string
                     # print page_soup.find(itemprop="datePublished")['content']
                     # print page_soup.find('time', itemprop="duration").string.strip()
-                    budget_divs = page_soup.find(id='titleDetails').find_all('div', class_="txt-block")
-                    for i in range(len(budget_divs)):
-                        unicode(budget_divs[i]).index('Budget')
-
-                    # [55:80].strip()
-
+                    
 
                     # for director in page_soup.find_all('div', itemprop="director"):
                     #     print director.find('a')['href'][:15]
