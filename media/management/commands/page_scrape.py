@@ -11,16 +11,60 @@ class Command(BaseCommand):
 
 def page_scrape(args):
 
-    url="http://www.imdb.com/search/title?at=0&count=1&sort=year,desc&start=17461&title_type=feature,tv_series,tv_movie"
+    url="http://www.imdb.com/search/title?at=0&count=100&sort=num_votes"
     r = requests.get(url)
     soup = BeautifulSoup(r.content)
-    links = soup.find_all('a')
-    id_list = []
-    for link in links:
-        if link.get('href').find('title/tt') > 0 and len(link.get('href')) == 17:
-            if link.get('href')[7:16] in id_list:
-                print 'skip'
-            else:
-                id_list.append(link.get('href')[7:16])
-    print id_list
-    print get_content(id_list)
+    for link in soup.find_all('a'):
+        url = str(link.get('href'))
+        title = link.get('title')
+        if url[0:7] == '/title/':
+            try:
+                title = str(title)
+                if 'TV Series' in title or 'Mini-Series' in title or 'Short Film' in title or 'Documentary' in title or 'TV Movie' in title or 'Video' in title:
+                    pass
+                elif '(' in title:
+                    print url[len(url)-10:len(url)-1]
+                    page_url = 'http://www.imdb.com' + url
+                    page_r = requests.get(page_url)
+                    page_soup = BeautifulSoup(page_r.content)
+                    # print page_soup.find('span',itemprop="ratingValue").string
+                    # print page_soup.find(itemprop="datePublished")['content']
+                    # print page_soup.find('time', itemprop="duration").string.strip()
+                    budget_divs = page_soup.find(id='titleDetails').find_all('div', class_="txt-block")
+                    for i in range(len(budget_divs)):
+                        unicode(budget_divs[i]).index('Budget')
+
+                    # [55:80].strip()
+
+
+                    # for director in page_soup.find_all('div', itemprop="director"):
+                    #     print director.find('a')['href'][:15]
+                    #     print director.find('a').string
+                    # for writer in page_soup.find_all('div', itemprop="creator"):
+                    #     print writer.find('a')['href'][:15]
+                    #     print writer.find('a').string
+                    # for actor_even in page_soup.find_all('tr', 'even'):
+                    #     if actor_even.find('td', itemprop="actor") != None:
+                    #         print actor_even.find('td', itemprop="actor").find('a')['href'][:16]
+                    #         print actor_even.find('td', itemprop="actor").find('span').string
+                    #         try:
+                    #             print actor_even.find('td', class_="character").find('a')['href'][:21]
+                    #             print actor_even.find('td', class_="character").find('a').string
+                    #         except TypeError:
+                    #             pass
+                    #     else:
+                    #         pass
+                    # for actor_odd in page_soup.find_all('tr', 'odd'):
+                    #     if actor_odd.find('td', itemprop="actor") != None:
+                    #         print actor_odd.find('td', itemprop="actor").find('a')['href'][:16]
+                    #         print actor_odd.find('td', itemprop="actor").find('span').string
+                    #         try:
+                    #             print actor_odd.find('td', class_="character").find('a')['href'][:21]
+                    #             print actor_odd.find('td', class_="character").find('a').string
+                    #         except TypeError:
+                    #             pass
+                    #     else:
+                    #         pass
+                    break
+            except UnicodeEncodeError:
+                pass

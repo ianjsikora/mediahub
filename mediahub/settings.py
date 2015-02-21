@@ -1,4 +1,4 @@
-from local_settings import SECRET_KEY
+from local_settings import SECRET_KEY, SECRET_KEY_API
 
 
 
@@ -19,9 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n6j_!u3in$aee5oph3*@_118bo#x6u#d(1tn%6w-__f%rq7#o1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

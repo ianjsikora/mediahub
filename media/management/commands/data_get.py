@@ -5,7 +5,7 @@ from media.models import Content
 from media.models import Genre
 from media.models import Character
 from media.models import Person
-from local_settings import SECRET_KEY
+from local_settings import SECRET_KEY_API
 
 class Command(BaseCommand):
 
@@ -20,10 +20,12 @@ def get_content(args):
 
         #Define API Links
         imdb_url = "http://www.omdbapi.com/?i=" + imdb_target + "&plot=full&r=json"
+        print imdb_url
         imdb = requests.get(imdb_url)
+        print imdb
         tomato_target = imdb.json()['Title']
-        tomato_url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + SECRET_KEY + tomato_target + "&page_limit=1"
-        print tomato_url
+        tomato_url = "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + SECRET_KEY_API + tomato_target + "&page_limit=1"
+
         tomato = requests.get(tomato_url)
         print tomato.json()
 
@@ -69,7 +71,7 @@ def get_content(args):
                                )
 
         #Get Genres Data
-        genres_url = tomato.json()['movies'][0]['links']['self'] + "?apikey=" + SECRET_KEY + tomato_target + "&page_limit=1"
+        genres_url = tomato.json()['movies'][0]['links']['self'] + "?apikey=" + SECRET_KEY_API + tomato_target + "&page_limit=1"
         genre_request = requests.get(genres_url)
         genre = genre_request.json()['genres']
         genres = []
@@ -81,7 +83,7 @@ def get_content(args):
         content_qs[0].genre.add(*genres)
 
         #Get Character Data
-        character_url = tomato.json()['movies'][0]['links']['cast'] + "?apikey=" + SECRET_KEY + tomato_target + "&page_limit=1"
+        character_url = tomato.json()['movies'][0]['links']['cast'] + "?apikey=" + SECRET_KEY_API + tomato_target + "&page_limit=1"
         character_request = requests.get(character_url)
         character = character_request.json()['cast']
         characters = []
